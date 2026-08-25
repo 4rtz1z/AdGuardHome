@@ -33,11 +33,12 @@ jobs:
         with:
           node-version: "20"
           cache: npm
-          cache-dependency-path: client_v2/package-lock.json
+          cache-dependency-path: client/package-lock.json
 
-      - name: Build AdGuard Home
+      - name: Build AdGuard Home with stable UI
         run: |
           make \
+            CLIENT_DIR="client" \
             ARCH="amd64" \
             OS="linux" \
             GOAMD64="v1" \
@@ -56,7 +57,7 @@ jobs:
       - name: Upload build
         uses: actions/upload-artifact@v4
         with:
-          name: AdGuardHome-openwrt-x86_64
+          name: AdGuardHome-openwrt-x86_64-stable-ui
           path: |
             dist/AdGuardHome_linux_amd64.tar.gz
             dist/checksums.txt
